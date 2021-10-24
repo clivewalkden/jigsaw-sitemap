@@ -9,7 +9,7 @@ Sitemap and sitemap index builder for [Jigsaw](https://jigsaw.tighten.co).
 Add as an event [listener](https://jigsaw.tighten.co/docs/event-listeners) in `bootstrap.php`.
 
 ```php
-use Eastslopestudio\JigsawSitemap\SitemapListener;
+use CliveWalkden\JigsawSitemap\SitemapListener;
 
 /**
  * An afterBuild event is fired after the build is complete, and all output files
@@ -33,3 +33,6 @@ $events->afterBuild([
     // ...
 ],
 ```
+
+## Laravel 6 Updates (Jigsaw 1.3.16+)
+Updates to make the plugin work with Laravel 6 components used in Jigsaw 1.3.16+ were made by Clive Walkden. All previous work was done by [Ryan Scherler](https://github.com/eastslopestudio/jigsaw-sitemap).
