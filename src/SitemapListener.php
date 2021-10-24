@@ -1,6 +1,6 @@
 <?php
 
-namespace Eastslopestudio\JigsawSitemap;
+namespace CliveWalkden\JigsawSitemap;
 
 use Illuminate\Support\Str;
 use samdark\sitemap\Sitemap;
