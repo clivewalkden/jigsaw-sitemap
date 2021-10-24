@@ -33,3 +33,6 @@ $events->afterBuild([
     // ...
 ],
 ```
+
+## Laravel 6 Updates (Jigsaw 1.3.16+)
+Updates to make the plugin work with Laravel 6 components used in Jigsaw 1.3.16+ were made by Clive Walkden. All previous work was done by [Ryan Scherler](https://github.com/eastslopestudio/jigsaw-sitemap).
