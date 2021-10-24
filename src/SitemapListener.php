@@ -2,12 +2,12 @@
 
 namespace Eastslopestudio\JigsawSitemap;
 
-use TightenCo\Jigsaw\Jigsaw;
+use Illuminate\Support\Str;
 use samdark\sitemap\Sitemap;
+use TightenCo\Jigsaw\Jigsaw;
 
 class SitemapListener
 {
-
     /**
      * Jigsaw instance.
      *
@@ -38,6 +38,6 @@ class SitemapListener
     {
         $excluded = $this->jigsaw->getConfig('sitemap_exclude');
         $invalidAssets = $excluded ? $excluded->toArray() : [];
-        return starts_with($path, '/assets') || str_contains($path, $invalidAssets);
+        return Str::startsWith($path, '/assets') || Str::contains($path, $invalidAssets);
     }
 }
