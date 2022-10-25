@@ -20,6 +20,7 @@ class SitemapListener
         
         $baseUrl = $jigsaw->getConfig('baseUrl');
         if (empty($baseUrl)) {
+            echo("\nTo generate a sitemap.xml file, please specify a 'baseUrl' in config.php.\n\n");
             return;
         }
 
@@ -27,7 +28,7 @@ class SitemapListener
 
         collect($jigsaw->getOutputPaths())->each(function ($path) use ($baseUrl, $sitemap) {
             if (!$this->isAsset($path)) {
-                $sitemap->addItem($baseUrl . $path, time(), Sitemap::MONTHLY);
+                $sitemap->addItem(rtrim($baseUrl, '/') . $path, time(), Sitemap::MONTHLY);
             }
         });
 
