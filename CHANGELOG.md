@@ -22,7 +22,7 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ## [Unreleased]
 
-## [v1.1.2] - 2022-11-02
+## [v1.2.0] - 2022-11-02
 ### Added
 - Trailing slash option to stop spiders reporting 308 permanent redirects on all links
 
