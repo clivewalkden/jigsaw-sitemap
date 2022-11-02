@@ -22,6 +22,14 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ## [Unreleased]
 
+## [v1.1.2] - 2022-11-02
+### Added
+- Trailing slash option to stop spiders reporting 308 permanent redirects on all links
+
+### Changed
+- Configuration to allow future expansion of the module
+
+
 ## [v1.1.1] - 2022-10-26
 ### Fixed
 - Added trim to baseUrl to stop double slash

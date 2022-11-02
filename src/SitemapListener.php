@@ -17,7 +17,7 @@ class SitemapListener
     public function handle(Jigsaw $jigsaw)
     {
         $this->jigsaw = $jigsaw;
-        
+
         $baseUrl = $jigsaw->getConfig('baseUrl');
         if (empty($baseUrl)) {
             echo("\nTo generate a sitemap.xml file, please specify a 'baseUrl' in config.php.\n\n");
@@ -28,7 +28,7 @@ class SitemapListener
 
         collect($jigsaw->getOutputPaths())->each(function ($path) use ($baseUrl, $sitemap) {
             if (!$this->isAsset($path)) {
-                $sitemap->addItem(rtrim($baseUrl, '/') . $path, time(), Sitemap::MONTHLY);
+                $sitemap->addItem(rtrim($baseUrl, '/') . $path . ($this->jigsaw->getConfig('sitemap.url_trailing_slash') ? '/' : ''), time(), Sitemap::MONTHLY);
             }
         });
 
@@ -37,7 +37,7 @@ class SitemapListener
 
     private function isAsset($path)
     {
-        $excluded = $this->jigsaw->getConfig('sitemap_exclude');
+        $excluded = $this->jigsaw->getConfig('sitemap.exclude');
         $invalidAssets = $excluded ? $excluded->toArray() : [];
         return Str::startsWith($path, '/assets') || Str::contains($path, $invalidAssets);
     }
