@@ -27,10 +27,13 @@ $events->afterBuild([
 > Note: You can exclude files from the sitemap by adding the following to your `config.php`:
 
 ```php
-'sitemap_exclude' => [
-    '.htaccess',
-    'favicon.ico',
-    // ...
+'sitemap' => [
+    'url_trailing_slash' => true,
+    'exclude' => [
+        '.htaccess',
+        'favicon.ico',
+        // ...
+    ],
 ],
 ```
 
