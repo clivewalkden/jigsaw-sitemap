@@ -34,6 +34,17 @@ $events->afterBuild([
         'favicon.ico',
         // ...
     ],
+    'image_sitemap' => [
+        'generate' => true,
+        'filename' => 'sitemap_images.xml',
+        'extensions' => [
+            'gif',
+            'jpg',
+            'jpeg',
+            'png',
+            // ...
+        ]
+    ]
 ],
 ```
 

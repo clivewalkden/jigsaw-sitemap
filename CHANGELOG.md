@@ -21,6 +21,12 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 
 ## [Unreleased]
+### Added
+- Image sitemap generation with extension types, and naming option
+
+### Fixed
+- Non-asset files with extensions (robots.txt) don't get the slash added when sitemap.url_trailing_slash is true
+
 
 ## [v1.2.0] - 2022-11-02
 ### Added

@@ -24,21 +24,59 @@ class SitemapListener
             return;
         }
 
-        $sitemap = new Sitemap($jigsaw->getDestinationPath() . '/sitemap.xml');
+        $this->generateSitemap($baseUrl);
+        if ($jigsaw->getConfig('sitemap.image_sitemap.generate')) {
+            $this->generateImageSitemap($baseUrl);
+        }
+    }
 
-        collect($jigsaw->getOutputPaths())->each(function ($path) use ($baseUrl, $sitemap) {
-            if (!$this->isAsset($path)) {
-                $sitemap->addItem(rtrim($baseUrl, '/') . $path . ($this->jigsaw->getConfig('sitemap.url_trailing_slash') ? '/' : ''), time(), Sitemap::MONTHLY);
+    private function generateSitemap($baseUrl)
+    {
+        $sitemap = new Sitemap($this->jigsaw->getDestinationPath() . '/sitemap.xml');
+
+        collect($this->jigsaw->getOutputPaths())->each(function ($path) use ($baseUrl, $sitemap) {
+            // Don't index assets
+            if (!$this->isAsset($path) && !$this->isExcluded($path)) {
+                // Check if a file extension is present
+                if ($ext = pathinfo($path, PATHINFO_EXTENSION)) {
+                    $sitemap->addItem(rtrim($baseUrl, '/') . $path, time(), Sitemap::MONTHLY);
+                } else {
+                    $sitemap->addItem(rtrim($baseUrl, '/') . $path . ($this->jigsaw->getConfig('sitemap.url_trailing_slash') ? '/' : ''), time(), Sitemap::MONTHLY);
+                }
             }
         });
 
         $sitemap->write();
     }
 
-    private function isAsset($path)
+    private function generateImageSitemap($baseUrl)
+    {
+        $sitemap = new Sitemap($this->jigsaw->getDestinationPath() . '/' . ($this->jigsaw->getConfig('sitemap.image_sitemap.filename') ?: 'sitemap_images.xml'));
+        $exts = $this->jigsaw->getConfig('sitemap.image_sitemap.extensions');
+        $supported_extensions = $exts ? $exts->toArray() : [];
+
+        collect($this->jigsaw->getOutputPaths())->each(function ($path) use ($baseUrl, $sitemap, $supported_extensions) {
+            // Don't index assets
+            if ($this->isAsset($path) && !$this->isExcluded($path)) {
+                // Check if a file extension is present
+                $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+                if (in_array($ext, $supported_extensions))
+                $sitemap->addItem(rtrim($baseUrl, '/') . $path, time(), Sitemap::MONTHLY);
+            }
+        });
+
+        $sitemap->write();
+    }
+
+    private function isExcluded($path)
     {
         $excluded = $this->jigsaw->getConfig('sitemap.exclude');
         $invalidAssets = $excluded ? $excluded->toArray() : [];
-        return Str::startsWith($path, '/assets') || Str::contains($path, $invalidAssets);
+        return Str::contains($path, $invalidAssets);
+    }
+
+    private function isAsset($path)
+    {
+        return Str::startsWith($path, '/assets');
     }
 }
