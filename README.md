@@ -1,5 +1,9 @@
 # Jigsaw Sitemap
 
+[![Latest version][ico-version]][link-packagist]
+[![Quality Score][ico-code-quality]][link-code-quality]
+[![PSR2 Conformance][ico-styleci]][link-styleci]
+
 Sitemap and sitemap index builder for [Jigsaw](https://jigsaw.tighten.co).
 
 ---
@@ -53,3 +57,11 @@ Updates to make the plugin work with Laravel 6 components used in Jigsaw 1.3.16+
 
 ## Changelog
 To see the changelog open [CHANGELOG.md](./CHANGELOG.md)
+
+[ico-version]: https://img.shields.io/packagist/v/clivewalkden/jigsaw-sitemap.svg?style=flat-square
+[ico-code-quality]: https://scrutinizer-ci.com/g/clivewalkden/jigsaw-sitemap/badges/quality-score.png?style=flat-square
+[ico-styleci]: https://styleci.io/repos/420775324/shield
+
+[link-packagist]: https://packagist.org/packages/clivewalkden/jigsaw-sitemap
+[link-code-quality]: https://scrutinizer-ci.com/g/clivewalkden/jigsaw-sitemap/
+[link-styleci]: https://styleci.io/repos/420775324/
