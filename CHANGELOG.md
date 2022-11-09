@@ -22,6 +22,14 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ## [Unreleased]
 
+## [v1.3.1] - 2022-11-09
+### Fixed
+- StyleCI fixes
+
+### Changed
+- Added funding option to project
+
+
 ## [v1.3.0] - 2022-11-04
 ### Added
 - Image sitemap generation with extension types, and naming option

@@ -10,7 +10,6 @@ class SitemapListener
 {
     /**
      * Jigsaw instance.
-     *
      */
     protected $jigsaw;
 
@@ -20,7 +19,8 @@ class SitemapListener
 
         $baseUrl = $jigsaw->getConfig('baseUrl');
         if (empty($baseUrl)) {
-            echo("\nTo generate a sitemap.xml file, please specify a 'baseUrl' in config.php.\n\n");
+            echo "\nTo generate a sitemap.xml file, please specify a 'baseUrl' in config.php.\n\n";
+
             return;
         }
 
@@ -32,16 +32,16 @@ class SitemapListener
 
     private function generateSitemap($baseUrl)
     {
-        $sitemap = new Sitemap($this->jigsaw->getDestinationPath() . '/sitemap.xml');
+        $sitemap = new Sitemap($this->jigsaw->getDestinationPath().'/sitemap.xml');
 
         collect($this->jigsaw->getOutputPaths())->each(function ($path) use ($baseUrl, $sitemap) {
             // Don't index assets
             if (!$this->isAsset($path) && !$this->isExcluded($path)) {
                 // Check if a file extension is present
                 if ($ext = pathinfo($path, PATHINFO_EXTENSION)) {
-                    $sitemap->addItem(rtrim($baseUrl, '/') . $path, time(), Sitemap::MONTHLY);
+                    $sitemap->addItem(rtrim($baseUrl, '/').$path, time(), Sitemap::MONTHLY);
                 } else {
-                    $sitemap->addItem(rtrim($baseUrl, '/') . $path . ($this->jigsaw->getConfig('sitemap.url_trailing_slash') ? '/' : ''), time(), Sitemap::MONTHLY);
+                    $sitemap->addItem(rtrim($baseUrl, '/').$path.($this->jigsaw->getConfig('sitemap.url_trailing_slash') ? '/' : ''), time(), Sitemap::MONTHLY);
                 }
             }
         });
@@ -51,7 +51,7 @@ class SitemapListener
 
     private function generateImageSitemap($baseUrl)
     {
-        $sitemap = new Sitemap($this->jigsaw->getDestinationPath() . '/' . ($this->jigsaw->getConfig('sitemap.image_sitemap.filename') ?: 'sitemap_images.xml'));
+        $sitemap = new Sitemap($this->jigsaw->getDestinationPath().'/'.($this->jigsaw->getConfig('sitemap.image_sitemap.filename') ?: 'sitemap_images.xml'));
         $exts = $this->jigsaw->getConfig('sitemap.image_sitemap.extensions');
         $supported_extensions = $exts ? $exts->toArray() : [];
 
@@ -60,8 +60,9 @@ class SitemapListener
             if ($this->isAsset($path) && !$this->isExcluded($path)) {
                 // Check if a file extension is present
                 $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-                if (in_array($ext, $supported_extensions))
-                $sitemap->addItem(rtrim($baseUrl, '/') . $path, time(), Sitemap::MONTHLY);
+                if (in_array($ext, $supported_extensions)) {
+                    $sitemap->addItem(rtrim($baseUrl, '/').$path, time(), Sitemap::MONTHLY);
+                }
             }
         });
 
@@ -72,6 +73,7 @@ class SitemapListener
     {
         $excluded = $this->jigsaw->getConfig('sitemap.exclude');
         $invalidAssets = $excluded ? $excluded->toArray() : [];
+
         return Str::contains($path, $invalidAssets);
     }
 
